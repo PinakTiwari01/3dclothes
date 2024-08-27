@@ -19,38 +19,39 @@
 
         main {
             display: flex;
-            gap: 50px;
+            flex-direction: column;
+            gap: 20px;
             max-width: 1200px;
             width: 100%;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             background-color: #ffffff;
             border-radius: 8px;
+            box-sizing: border-box;
         }
 
         #model-viewer {
-            flex: 2;
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: #e9ecef;
             border-radius: 8px;
             padding: 10px;
+            width: 100%;
         }
 
         #shirtViewer {
             width: 100%;
-            height: 500px;
+            height: 400px; /* Adjust height for better responsiveness */
             background-color: #fff;
             border: 1px solid #dee2e6;
             border-radius: 8px;
         }
 
         #controls {
-            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
         .control-group {
@@ -87,6 +88,31 @@
 
         button:hover {
             background-color: #0056b3;
+        }
+
+        @media (min-width: 768px) {
+            main {
+                flex-direction: row;
+            }
+
+            #model-viewer {
+                flex: 2;
+            }
+
+            #controls {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #shirtViewer {
+                height: 300px; /* Adjust height for smaller screens */
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
         }
     </style>
 </head>
@@ -178,6 +204,7 @@
 
             animate();
         }
+
         document.getElementById('addToCart').addEventListener('click', function() {
             if (modelLoaded) {  // Ensure the model is loaded before taking a snapshot
                 // Ensure the scene has been rendered at least once
@@ -259,24 +286,6 @@
         }
 
         window.onload = init;
-
-        document.getElementById('addToCart').addEventListener('click', function() {
-            // Ensure the scene has been rendered
-            renderer.render(scene, camera);
-        
-            // Delay the snapshot slightly to ensure everything is ready
-            setTimeout(() => {
-                // Capture the snapshot
-                const snapshot = renderer.domElement.toDataURL();
-        
-                // Save snapshot and other design details to localStorage
-                localStorage.setItem('tshirtSnapshot', snapshot);
-        
-                // Redirect to the Add to Cart page
-                window.location.href = 'add-to-cart.html';
-            }, 2000);  // Adjust delay if necessary
-        });
-        
     </script>
 </body>
 </html>

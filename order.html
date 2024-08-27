@@ -10,20 +10,22 @@
             background: linear-gradient(135deg, #f8f9fa 0%, #e2e2e2 100%);
             margin: 0;
             padding: 20px;
+            box-sizing: border-box;
         }
 
         .order-container {
             background-color: #ffffff;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            width: 600px;
+            width: 100%;
+            max-width: 600px;
             margin: 0 auto;
-            padding: 30px;
+            padding: 20px;
             animation: fadeIn 1s ease-out;
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 24px;
             color: #333;
             text-align: center;
             margin-bottom: 20px;
@@ -67,19 +69,20 @@
         }
 
         .order-summary p {
-            font-size: 18px;
+            font-size: 16px;
             color: #555;
+            margin: 0;
         }
 
         .order-summary .total-price {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
             color: #28a745;
         }
 
         button {
-            padding: 14px 22px;
-            font-size: 18px;
+            padding: 12px 20px;
+            font-size: 16px;
             color: #ffffff;
             background-color: #007bff;
             border: none;
@@ -101,6 +104,45 @@
         @keyframes slideIn {
             from { transform: translateY(-20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .order-container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .order-summary p {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .order-container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            .order-summary p {
+                font-size: 12px;
+            }
+
+            button {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
         }
     </style>
 </head>
@@ -128,8 +170,8 @@
             <input type="number" id="quantity" value="1" min="1">
 
             <div class="order-summary">
-                <p>Price per Item: <span id="pricePerItem">5000</span> USD</p>
-                <p>Total Price: <span id="totalPrice">5000</span> USD</p>
+                <p>Price per Item: <span id="pricePerItem">5000</span> Rs</p>
+                <p>Total Price: <span id="totalPrice">5000</span> Rs</p>
             </div>
         </div>
 
@@ -159,11 +201,8 @@
                 return;
             }
 
-            // You can process the order here (e.g., send it to a server)
             alert(`Order confirmed!\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nPayment: ${payment}\nQuantity: ${quantity}\nTotal Price: ${totalPriceSpan.textContent}`);
         });
     </script>
 </body>
 </html>
-
-
