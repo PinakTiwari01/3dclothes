@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D T-Shirt Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        main {
+            display: flex;
+            gap: 50px;
+            max-width: 1200px;
+            width: 100%;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            border-radius: 8px;
+        }
+
+        #model-viewer {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        #shirtViewer {
+            width: 100%;
+            height: 500px;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+        }
+
+        #controls {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #495057;
+        }
+
+        input[type="color"],
+        select,
+        input[type="file"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            background-color: #ffffff;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section id="model-viewer">
+            <div id="shirtViewer"></div>
+        </section>
+
+        <section id="controls">
+            <div class="control-group">
+                <label for="colorPicker">Choose Color:</label>
+                <input type="color" id="colorPicker" value="#ffffff">
+            </div>
+
+            <div class="control-group">
+                <label for="patternSelector">Choose Pattern:</label>
+                <select id="patternSelector">
+                    <option value="">None</option>
+                    <option value="camo">Camouflage</option>
+                    <option value="space">Space</option>
+                    <option value="zebra">White.</option>
+                    <option value="">comming soon....</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="imageUploader">Upload Image:</label>
+                <input type="file" id="imageUploader" accept="image/*">
+            </div>
+
+            <button id="addToCart">Add to Cart</button>
+            <button id="saveDesign">Save-Design-comming soon....</button>
+        </section>
+    </main>
+
+    <!-- Include Three.js library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        let scene, camera, renderer, tshirtModel, controls;
+        let textureLoader = new THREE.TextureLoader();  
+        let gltfLoader = new THREE.GLTFLoader();  
+        let modelLoaded = false;
+
+        function init() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf0f0f0);
+
+            camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+            camera.position.set(0, 0, 15);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(500, 500);
+            document.getElementById('shirtViewer').appendChild(renderer.domElement);
+
+            const ambientLight = new THREE.AmbientLight(0x404040, 5);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(5, 10, 7.5).normalize();
+            scene.add(directionalLight);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableZoom = true;
+
+            gltfLoader.load(
+                'canada_goose_winter_jacket.glb',  
+                function (gltf) {
+                    tshirtModel = gltf.scene;
+                    tshirtModel.scale.set(2, 2, 2);
+                    const bbox = new THREE.Box3().setFromObject(tshirtModel);
+                    const center = bbox.getCenter(new THREE.Vector3());
+                    tshirtModel.position.sub(center);
+                    scene.add(tshirtModel);
+                    modelLoaded = true;
+
+                    document.getElementById('colorPicker').addEventListener('input', changeColor);
+                    document.getElementById('patternSelector').addEventListener('change', changePattern);
+                    document.getElementById('imageUploader').addEventListener('change', uploadImage);
+                },
+                undefined,
+                function (error) {
+                    console.error('An error occurred during model loading:', error);
+                }
+            );
+
+            animate();
+        }
+        document.getElementById('addToCart').addEventListener('click', function() {
+            if (modelLoaded) {  // Ensure the model is loaded before taking a snapshot
+                // Ensure the scene has been rendered at least once
+                controls.update();
+                renderer.render(scene, camera);
+        
+                // Use requestAnimationFrame to ensure the render loop is complete
+                requestAnimationFrame(() => {
+                    const snapshot = renderer.domElement.toDataURL();  // Capture the snapshot
+                    localStorage.setItem('tshirtSnapshot', snapshot);  // Save the snapshot to localStorage
+        
+                    // Redirect to the Add to Cart page
+                    window.location.href = 'add-to-cart.html';
+                });
+            } else {
+                alert('Please wait, the model is still loading.');
+            }
+        });
+
+        function changeColor(event) {
+            if (tshirtModel) {
+                tshirtModel.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.color.set(event.target.value);
+                    }
+                });
+            }
+        }
+
+        function changePattern(event) {
+            const pattern = event.target.value;
+            let texture;
+
+            if (pattern === 'camo') {
+                texture = textureLoader.load('camo.jpg');
+            } else if (pattern === 'space') {
+                texture = textureLoader.load('space-background-with-stardust-shining-stars-realistic-colorful-cosmos-with-nebula-milky-way.jpg');
+            }  else {
+                texture = null;
+            }
+
+            if (tshirtModel) {
+                tshirtModel.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material.map = texture;
+                        child.material.needsUpdate = true;
+                    }
+                });
+            }
+        }
+
+        function uploadImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const texture = textureLoader.load(e.target.result);  
+                    texture.wrapS = THREE.RepeatWrapping;  
+                    texture.wrapT = THREE.RepeatWrapping;  
+                    texture.repeat.set(1, 1); 
+
+                    if (tshirtModel) {
+                        tshirtModel.traverse((child) => {
+                            if (child.isMesh) {
+                                child.material.map = texture;  
+                                child.material.needsUpdate = true; 
+                            }
+                        });
+                    }
+                };
+                reader.readAsDataURL(file); 
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();  
+            renderer.render(scene, camera);
+        }
+
+        window.onload = init;
+
+        document.getElementById('addToCart').addEventListener('click', function() {
+            // Ensure the scene has been rendered
+            renderer.render(scene, camera);
+        
+            // Delay the snapshot slightly to ensure everything is ready
+            setTimeout(() => {
+                // Capture the snapshot
+                const snapshot = renderer.domElement.toDataURL();
+        
+                // Save snapshot and other design details to localStorage
+                localStorage.setItem('tshirtSnapshot', snapshot);
+        
+                // Redirect to the Add to Cart page
+                window.location.href = 'add-to-cart.html';
+            }, 2000);  // Adjust delay if necessary
+        });
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        /* Video Section */
+        .video {
+            min-width: 100%;
+            max-height: 720px;
+            overflow: hidden;
+            position: relative;
+            text-align: center;
+        }
+
+        .video img {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+
+        .video .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 32, 60, 0.6);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .video .overlay h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: #ff6f61;
+        }
+
+        .video .overlay p {
+            color: #cccccc;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .video .overlay .social {
+            margin: 20px 0;
+        }
+
+        .video .overlay .social i {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid #cccccc;
+            line-height: 50px;
+            font-size: 24px;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .video .overlay .social i:hover {
+            border-color: #0b8ffe;
+            box-shadow: 0 0 15px #0b8ffe;
+            transform: scale(1.1);
+        }
+
+        .video .overlay form {
+            width: 90%;
+            max-width: 800px;
+            margin: 30px auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            background-color: rgba(0, 32, 60, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .video .overlay form input,
+        .video .overlay form textarea {
+            background-color: transparent;
+            border: 1px solid #ccc;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .video .overlay form input:focus,
+        .video .overlay form textarea:focus {
+            border-color: #0b8ffe;
+            box-shadow: 0 0 10px rgba(11, 143, 254, 0.5);
+        }
+
+        .video .overlay form input::placeholder,
+        .video .overlay form textarea::placeholder {
+            color: #e8e8e8;
+        }
+
+        .video .overlay form [name="name"],
+        .video .overlay form [name="email"],
+        .video .overlay form [name="phone"] {
+            width: 48%;
+        }
+
+        .video .overlay form [name="subject"],
+        .video .overlay form [name="website"] {
+            width: 48%;
+        }
+
+        .video .overlay form textarea {
+            width: 100%;
+            height: 120px;
+        }
+
+        .video .overlay form button {
+            background-color: #ff6f61;
+            color: #ffffff;
+            border: none;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video .overlay form button:hover {
+            background-color: #e05f4f;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .video .overlay form button div {
+            position: relative;
+            z-index: 1;
+        }
+
+        .video .overlay form button i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        /* Media Queries */
+        @media only screen and (max-width: 575px) {
+            .video .overlay h2 {
+                font-size: 2rem;
+            }
+
+            .video .overlay p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .video .overlay form {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .video .overlay form input,
+            .video .overlay form textarea {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section id="home">
+        <div class="video">
+            <img src="https://i.ytimg.com/vi/cr3Bf53Lseo/maxresdefault.jpg" alt="logo"/>
+            <div class="overlay">
+                <div class="container">
+                    <h2>Contact Me</h2>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p>
+                    <form action="connect.php" method="post">
+                        <input type="text" name="name" id="name" placeholder="Your Name">
+                        <input type="email" name="email" id="email" placeholder="Your Email">
+                        <input type="tel" name="phone" id="phone" placeholder="Your Phone">
+                        <input type="text" name="subject" id="subject" placeholder="Subject">
+                        <textarea name="textareaa" id="textareaa" placeholder="Your Message"></textarea>
+                        <button type="submit">
+                            <div>Send</div>
+                            <i class="fa fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

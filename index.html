@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Your Clothes</title>
+    <style>
+        /* Global Styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        header {
+            background-color: #1f1f1f;
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #ff6f61;
+        }
+
+        #themeToggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            cursor: pointer;
+            background-color: #ff6f61;
+            color: #ffffff;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #themeToggle:hover {
+            background-color: #ff8f81;
+            transform: scale(1.05);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #2c2c2c 0%, #3a3a3a 100%);
+            background-size: cover;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: #ff6f61;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background-color: #ff8f81;
+            transform: scale(1.05);
+        }
+
+        /* Features Section */
+       /* Features Section */
+.features {
+    padding: 4rem 1rem;
+    text-align: center;
+    background-color: #1b1b1b;
+}
+
+.features h2 {
+    margin-bottom: 3rem;
+    font-size: 2rem;
+    color: #ff6f61;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.card {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1b1b1b 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.card h3 {
+    margin: 1rem 0;
+    color: #ff6f61;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.card p {
+    padding: 0 1.5rem 1.5rem;
+    font-size: 1rem;
+    color: #cccccc;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.card:hover img {
+    opacity: 0.9;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #ff6f61;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.card:hover::before {
+    background-color: #ff8f81;
+}
+
+/* Light Theme Adjustments */
+body.light-theme .card {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+}
+
+body.light-theme .card h3 {
+    color: #444444;
+}
+
+body.light-theme .card p {
+    color: #333333;
+}
+      
+      /* Hero Section */
+/* Hero Section */
+.hero {
+    position: relative;
+    text-align: center;
+    padding: 6rem 2rem;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%), url('hero-bg.jpg') no-repeat center center/cover;
+    color: #ffffff;
+    overflow: hidden;
+    border-bottom: 2px solid #ff6f61;
+    animation: fadeIn 2s ease-out;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
+    z-index: 1;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    z-index: 2;
+    position: relative;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: slideIn 1s ease-out 0.5s forwards;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    z-index: 2;
+    position: relative;
+    font-weight: 300;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: slideIn 1s ease-out 1s forwards;
+}
+
+.cta-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: #ff6f61;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-out 1.5s forwards;
+}
+
+.cta-btn:hover {
+    background-color: #ff8f81;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .cta-btn {
+        padding: 0.8rem 2rem;
+    }
+}
+
+
+        /* Footer */
+        footer {
+            background-color: #1f1f1f;
+            padding: 1.5rem;
+            text-align: center;
+            color: #bbbbbb;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        header.light-theme {
+            background-color: #f0f0f0;
+        }
+
+        .hero.light-theme {
+            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+        }
+
+        .card.light-theme {
+            background-color: #f5f5f5;
+        }
+
+        #themeToggle.light-theme {
+            background-color: #444444;
+            color: #ffffff;
+        }
+
+        .cta-btn.light-theme {
+            background-color: #444444;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>Customize Your Clothes</h1>
+            <button id="themeToggle">Change-Theme</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Design Your Perfect Outfit</h2>
+        <p>Create unique and stylish clothes tailored to your preferences.</p>
+        <a href="#customize" class="cta-btn">Start Customizing</a>
+    </section>
+
+    <section id="customize" class="features">
+        <h2>Our Features</h2>
+        <div class="card-container">
+            <div class="card">
+                <a href="tshirt.html">
+                <img src="images\t-shirt.png" alt="T-Shirt Customization">
+                <h3>T-Shirt Customization</h3>
+                <p>Design your own T-shirt with custom colors, prints, and text.</p></a>
+            </div>
+            <div class="card">
+                <a href="maintest.html">
+                <img src="images\hoodie.png" alt="Hoodie Customization">
+                <h3>Hoodie Customization</h3>
+                <p>Create a stylish hoodie with your choice of materials and designs.</p></a>
+            </div>
+            <div class="card">
+                <img src="images\sneaker.png" alt="Cap Customization">
+                <h3>Sneakers-Customization</h3>
+                <p>Personalize your cap with unique embroidery and patches. Comming-Soon...</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Customize Your Clothes by Pinak Tiwari. All rights reserved.</p>
+        <button onclick="window.location.href='contact.html';" style="
+    padding: 0.7rem 1.5rem;
+    background-color: #ff6f61;
+    color: #ffffff;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+">Contact Us</button>
+    </footer>
+
+    <script>
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            document.querySelector('header').classList.toggle('light-theme');
+            document.querySelector('.hero').classList.toggle('light-theme');
+            document.querySelectorAll('.card').forEach(card => {
+                card.classList.toggle('light-theme');
+            });
+            document.querySelector('#themeToggle').classList.toggle('light-theme');
+        });
+    </script>
+</body>
+</html>

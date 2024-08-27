@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add to Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .cart-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+
+        .cart-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cart-details img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .cart-details p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <h1>Your Customized T-Shirt</h1>
+        <div class="cart-details">
+            <img id="tshirtSnapshot" src="" alt="T-Shirt Snapshot">
+            <p></p>
+        </div>
+        <button id="checkoutButton">Proceed to Checkout</button>
+    </div>
+
+    <script>
+        const snapshot = localStorage.getItem('tshirtSnapshot');
+        document.getElementById('tshirtSnapshot').src = snapshot;
+    
+        const color = localStorage.getItem('tshirtColor');
+        const pattern = localStorage.getItem('tshirtPattern');
+        
+        let detailsText = `Color: ${color}`;
+        if (pattern) {
+            detailsText += `, Pattern: ${pattern}`;
+        }
+    
+        document.querySelector('.cart-details p').textContent = detailsText;
+    
+        document.getElementById('checkoutButton').addEventListener('click', function() {
+            window.location.href = 'order.html';
+        });
+    </script>
+</body>
+</html>
+
